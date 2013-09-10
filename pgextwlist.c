@@ -187,7 +187,10 @@ extwlist_ProcessUtility PROCESS_UTILITY_PROTO_ARGS
 	/* Don't try to make life hard for our friendly superusers. */
 	if (superuser())
 	{
-		call_ProcessUtility PROCESS_UTILITY_ARGS;
+		if (prev_ProcessUtility)
+			prev_ProcessUtility PROCESS_UTILITY_ARGS;
+		else
+			standard_ProcessUtility PROCESS_UTILITY_ARGS;
 		return;
 	}
 
